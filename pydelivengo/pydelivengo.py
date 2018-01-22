@@ -28,7 +28,7 @@ class PyDelivengo(object):
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
 
-    def get_depot(self, depot_id, params=None):
+    def get_depot(self, depot_id, params=None, print_pdf=False):
         """
         Return the data for the ID.
 
@@ -36,11 +36,19 @@ class PyDelivengo(object):
         :type depot_id: int
         :param params: dict of parameters for the request.
         :type params: dict
+        :param print_pdf: True if you want the PDF of the deposit, else False.
+        :type print_pdf: bool
         :return: a dictionary with deposit's data for the ID given.
         :rtype: dict
         """
         url = URL + 'depots/' + str(depot_id)
-        response = requests.request('GET', url, headers=self.headers, params=params)
+
+        if print_pdf:  # Merge the 2 dicts
+            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+        else:
+            headers = self.headers
+
+        response = requests.request('GET', url, headers=headers, params=params)
         return json.loads(response.text)
 
     # -------------------------------------------------------------------------
@@ -58,7 +66,7 @@ class PyDelivengo(object):
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
 
-    def get_envoi(self, envoi_id, params=None):
+    def get_envoi(self, envoi_id, params=None, print_pdf=False):
         """
         Get the data for the ID given.
 
@@ -66,11 +74,19 @@ class PyDelivengo(object):
         :type envoi_id: int
         :param params: dict of parameters for the request.
         :type params: dict
+        :param print_pdf: True if you want the PDF of the deposit, else False.
+        :type print_pdf: bool
         :return: a dict with the data of the shipment.
         :rtype: dict
         """
         url = URL + 'envois/' + str(envoi_id)
-        response = requests.request('GET', url, headers=self.headers, params=params)
+
+        if print_pdf:  # Merge the 2 dicts
+            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+        else:
+            headers = self.headers
+
+        response = requests.request('GET', url, headers=headers, params=params)
         return json.loads(response.text)
 
     def delete_envois(self, envoi_id):
@@ -127,17 +143,25 @@ class PyDelivengo(object):
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
 
-    def get_pli(self, pli_id):
+    def get_pli(self, pli_id, print_pdf=False):
         """
         Get the envelope for the ID given.
 
         :param pli_id: The ID of the envelope.
         :type pli_id: int
+        :param print_pdf: True if you want the PDF of the deposit, else False.
+        :type print_pdf: bool
         :return: a dict with data of the envelope for the ID given.
         :rtype: dict
         """
         url = URL + 'plis/' + str(pli_id)
-        response = requests.request('GET', url, headers=self.headers)
+
+        if print_pdf:  # Merge the 2 dicts
+            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+        else:
+            headers = self.headers
+
+        response = requests.request('GET', url, headers=headers)
         return json.loads(response.text)
 
     def delete_plis(self, pli_id):
