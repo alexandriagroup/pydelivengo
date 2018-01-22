@@ -34,6 +34,8 @@ class PyDelivengo(object):
 
         :param depot_id: the ID of the deposit.
         :type depot_id: int
+        :param params: dict of parameters for the request.
+        :type params: dict
         :return: a dictionary with deposit's data for the ID given.
         :rtype: dict
         """
@@ -47,6 +49,8 @@ class PyDelivengo(object):
         """
         Get all the shipments.
 
+        :param params: dict of parameters for the request.
+        :type params: dict
         :return: all the shipments.
         :rtype: dict
         """
@@ -60,6 +64,8 @@ class PyDelivengo(object):
 
         :param envoi_id: a shipment ID.
         :type envoi_id: int
+        :param params: dict of parameters for the request.
+        :type params: dict
         :return: a dict with the data of the shipment.
         :rtype: dict
         """
@@ -112,6 +118,8 @@ class PyDelivengo(object):
         """
         Get all the envelopes.
 
+        :param params: dict of parameters for the request.
+        :type params: dict
         :return: a list of envelopes.
         :rtype: dict
         """
