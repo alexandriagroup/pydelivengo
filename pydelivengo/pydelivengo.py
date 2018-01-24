@@ -51,6 +51,30 @@ class PyDelivengo(object):
         response = requests.request('GET', url, headers=headers, params=params)
         return json.loads(response.text)
 
+    def post_depot(self, data_dict, print_pdf=False):
+        """
+        Post a deposit.
+
+        :param data_dict: the data of the deposit.
+        :type data_dict: dict
+        :param print_pdf: True if you want the PDF of the deposit, else False.
+        :type print_pdf: bool
+        :return: a dict of the new deposit posted.
+        :rtype: dict
+        """
+        url = URL + 'depots/'
+
+        if print_pdf:  # Merge the 2 dicts
+            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+        else:
+            headers = self.headers
+
+        # Json encoding
+        data_json = json.dumps(data_dict)
+
+        response = requests.request('POST', url, data=data_json, headers=headers)
+        return json.loads(response.text)
+
     # -------------------------------------------------------------------------
 
     def get_envois(self, params=None):
@@ -101,6 +125,33 @@ class PyDelivengo(object):
         url = URL + 'envois/' + str(envoi_id)
         response = requests.request('DELETE', url, headers=self.headers)
         return response.ok
+
+    def post_envois(self, data_dict, print_pdf=False, params=None):
+        """
+        Post a shipment.
+
+        :param data_dict: the data of the shipment.
+        :type data_dict: dict
+        :param print_pdf: True if you want the PDF of the deposit, else False.
+        :type print_pdf: bool
+        :param params: dict of parameters for the request.
+        :type params: dict
+        :return: a dict of the new deposit posted.
+        :rtype: dict
+        """
+        url = URL + 'envois/'
+
+        if print_pdf:  # Merge the 2 dicts
+            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+        else:
+            headers = self.headers
+
+        # Json encoding
+        data_json = json.dumps(data_dict)
+
+        # Request
+        response = requests.request('POST', url, data=data_json, headers=headers, params=params)
+        return json.loads(response.text)
 
     # -------------------------------------------------------------------------
 
