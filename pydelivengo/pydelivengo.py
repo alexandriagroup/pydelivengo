@@ -1,3 +1,7 @@
+# Copyright © 2018 Alexandria
+#
+# Distributed under terms of the MIT license.
+
 import json
 
 import requests
@@ -41,6 +45,8 @@ class PyDelivengo(object):
         :return: a dictionary with deposit's data for the ID given.
         :rtype: dict
         """
+        if depot_id is None:
+            raise Exception
         url = URL + 'depots/' + str(depot_id)
 
         if print_pdf:  # Merge the 2 dicts

@@ -1,4 +1,7 @@
-# -*- coding: utf-8 -*-
+# Copyright © 2018 Alexandria
+#
+# Distributed under terms of the MIT license.
+
 import requests_mock
 from codecs import open
 

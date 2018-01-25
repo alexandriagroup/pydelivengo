@@ -1,3 +1,7 @@
+# Copyright © 2018 Alexandria
+#
+# Distributed under terms of the MIT license.
+
 from setuptools import setup
 
 tests_require = [
