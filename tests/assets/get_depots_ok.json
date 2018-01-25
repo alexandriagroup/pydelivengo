@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id": 1814183,
+      "id_utilisateur": 22852,
+      "date": "2018-01-15 14:57:51",
+      "num_coclico": "2205490",
+      "num_siret": "",
+      "bordereaux": [
+        {
+          "id": 1727987,
+          "numero": "0000000001",
+          "nb_pages": 2,
+          "type": 35
+        }
+      ]
+    }
+  ],
+  "recordsFiltered": 1,
+  "recordsTotal": 1
+}
