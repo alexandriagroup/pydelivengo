@@ -1,0 +1,79 @@
+{
+    "data": {
+        "id": 5306429,
+        "id_support": 33,
+        "id_utilisateur": 22855,
+        "date_creation": "2018-01-25 17:19:04",
+        "date_impression": "2018-01-25 17:19:04",
+        "descriptif": "Salut c'est le suivi !",
+        "total": null,
+        "plis": [
+            {
+                "id": 11450170,
+                "numero": "LD037508768FR",
+                "date_depot": null,
+                "date_retour_ar": null,
+                "reference": "",
+                "reference_interne": "Salut c'est le suivi !\n",
+                "options": "6",
+                "support": {
+                    "id": 33,
+                    "nom": "Delivengo Suivi",
+                    "nom_long": "Delivengo Suivi",
+                    "nom_court": "DELIVENGOSUIVI",
+                    "code": "DELIVENGOSUIVI",
+                    "classname": "DelivengoSuivi",
+                    "transporter_code": "LP2"
+                },
+                "imputation": {
+                    "libelle": "Berthuy Alexis",
+                    "id_code_imputation": 0,
+                    "id_utilisateur_imputation": 22855
+                },
+                "createur": {
+                    "id": 22855,
+                    "nom": "Berthuy Alexis",
+                    "email": "alexis.berthuy@abc-culture.fr"
+                },
+                "expediteur": {
+                    "raison_sociale": "EXPEDITEUR RAISON SOCIALE",
+                    "nom": "EXPEDITEUR NOM EXPEDITEUR NOM EXPEDITE",
+                    "complement_voie": "EXPEDITEUR COMPLEMENT VOIE EXPEDITEUR",
+                    "voie": "26 RUE GEORGE SAND 26 RUE GEORGE SAND2",
+                    "boite_postale": "EXPEDITEUR BOITE POSTALEEXPEDITEUR BOI",
+                    "code_postal_commune": "75016 PARIS",
+                    "pays": ""
+                },
+                "destinataire": {
+                    "raison_sociale": "DESTINATAIRE 1",
+                    "nom": "EXPEDITEUR NOM EXPEDITEUR NOM EXPEDITE",
+                    "complement_voie": "EXPEDITEUR COMPLEMENT VOIE EXPEDITEUR",
+                    "voie": "26 RUE GEORGE SAND 26 RUE GEORGE SAND2",
+                    "boite_postale": "EXPEDITEUR BOITE POSTALEEXPEDITEUR BOI",
+                    "code_postal_commune": "75016 PARIS",
+                    "pays": "ÉTATS-UNIS"
+                },
+                "retour_ar": {
+                    "raison_sociale": null,
+                    "nom": null,
+                    "complement_voie": null,
+                    "voie": null,
+                    "boite_postale": null,
+                    "code_postal_commune": "",
+                    "pays": ""
+                },
+                "documents_douaniers": [],
+                "tracking": {
+                    "url": null,
+                    "api_key": null
+                },
+                "statut": {
+                    "id": "0",
+                    "libelle": "Préparation",
+                    "date": null
+                },
+                "cart": null
+            }
+        ]
+    }
+}
