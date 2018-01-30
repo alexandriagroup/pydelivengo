@@ -6,6 +6,8 @@ import json
 
 import requests
 
+from pydelivengo.exception import PyDelivengoTypeError
+
 URL = 'https://mydelivengo.laposte.fr/api/v2/'
 
 
@@ -28,6 +30,9 @@ class PyDelivengo(object):
         :return: a list of deposits.
         :rtype: dict
         """
+        if params is not None and not isinstance(params, dict):
+            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+
         url = URL + 'depots'
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
@@ -45,8 +50,11 @@ class PyDelivengo(object):
         :return: a dictionary with deposit's data for the ID given.
         :rtype: dict
         """
-        if depot_id is None:
-            raise Exception
+        if not isinstance(depot_id, int):
+            raise PyDelivengoTypeError('depot_id should be a dictionary and not {}.'.format(type(depot_id)))
+        if params is not None and not isinstance(params, dict):
+            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+
         url = URL + 'depots/' + str(depot_id)
 
         if print_pdf:  # Merge the 2 dicts
@@ -68,6 +76,9 @@ class PyDelivengo(object):
         :return: a dict of the new deposit posted.
         :rtype: dict
         """
+        if not isinstance(data_dict, dict):
+            raise PyDelivengoTypeError('data_dict should be a dictionary and not {}.'.format(type(data_dict)))
+
         url = URL + 'depots/'
 
         if print_pdf:  # Merge the 2 dicts
@@ -92,6 +103,9 @@ class PyDelivengo(object):
         :return: all the shipments.
         :rtype: dict
         """
+        if params is not None and not isinstance(params, dict):
+            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+
         url = URL + 'envois'
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
@@ -109,6 +123,11 @@ class PyDelivengo(object):
         :return: a dict with the data of the shipment.
         :rtype: dict
         """
+        if not isinstance(envoi_id, int):
+            raise PyDelivengoTypeError('Type of envoi_id should be int and not {}.'.format(type(envoi_id)))
+        if params is not None and not isinstance(params, dict):
+            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+
         url = URL + 'envois/' + str(envoi_id)
 
         if print_pdf:  # Merge the 2 dicts
@@ -128,6 +147,9 @@ class PyDelivengo(object):
         :return: the request's status.
         :rtype: bool
         """
+        if not isinstance(envoi_id, int):
+            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(envoi_id)))
+
         url = URL + 'envois/' + str(envoi_id)
         response = requests.request('DELETE', url, headers=self.headers)
         return response.ok
@@ -145,6 +167,11 @@ class PyDelivengo(object):
         :return: a dict of the new deposit posted.
         :rtype: dict
         """
+        if not isinstance(data_dict, dict):
+            raise PyDelivengoTypeError('data_dict should be a and not a {}'.format(type(data_dict)))
+        if params is not None and not isinstance(params, dict):
+            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+
         url = URL + 'envois/'
 
         if print_pdf:  # Merge the 2 dicts
@@ -181,6 +208,9 @@ class PyDelivengo(object):
         :return: a dict with the data of this imputation.
         :rtype: dict
         """
+        if not isinstance(imputation_id, int):
+            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(imputation_id)))
+
         url = URL + 'imputations/' + str(imputation_id)
         response = requests.request('GET', url, headers=self.headers)
         return json.loads(response.text)
@@ -196,6 +226,9 @@ class PyDelivengo(object):
         :return: a list of envelopes.
         :rtype: dict
         """
+        if params is not None and not isinstance(params, dict):
+            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+
         url = URL + 'plis'
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
@@ -211,6 +244,9 @@ class PyDelivengo(object):
         :return: a dict with data of the envelope for the ID given.
         :rtype: dict
         """
+        if not isinstance(pli_id, int):
+            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(pli_id)))
+
         url = URL + 'plis/' + str(pli_id)
 
         if print_pdf:  # Merge the 2 dicts
@@ -230,6 +266,9 @@ class PyDelivengo(object):
         :return: the request's status.
         :rtype: bool
         """
+        if not isinstance(pli_id, int):
+            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(pli_id)))
+
         url = URL + 'plis/' + str(pli_id)
         response = requests.request('DELETE', url, headers=self.headers)
         return response.ok
@@ -245,6 +284,9 @@ class PyDelivengo(object):
         :return: a dict with the data of the user
         :rtype: dict
         """
+        if not isinstance(user_id, int):
+            raise PyDelivengoTypeError('user_id should be an integer and not a {}'.format(type(user_id)))
+
         url = URL + 'utilisateurs/' + str(user_id)
         response = requests.request('GET', url, headers=self.headers)
         return json.loads(response.text)
