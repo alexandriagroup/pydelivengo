@@ -1,4 +1,6 @@
-# pydelivengo
+# pydelivengo 
+[![Build Status](https://travis-ci.org/alexandriagroup/pydelivengo.svg?branch=master)](https://travis-ci.org/alexandriagroup/pydelivengo)
+
 pydelivengo is a Python library using the MyDelivengo API
 
 
