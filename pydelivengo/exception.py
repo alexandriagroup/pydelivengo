@@ -7,11 +7,6 @@ class PyDelivengoException(Exception):
     pass
 
 
-class PyDelivengoMissingParameter(PyDelivengoException):
-    """"""
-    pass
-
-
 class PyDelivengoTypeError(PyDelivengoException):
     """"""
     pass
