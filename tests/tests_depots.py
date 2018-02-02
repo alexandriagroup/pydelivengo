@@ -57,20 +57,20 @@ def test_get_depot():
                           }
 
 
-def test_get_depot_application_pdf():
-    """Test get_depot when the pdf is requested."""
-    with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_depot_ok.json", "rb", encoding='utf8').read()
-        m.get('https://mydelivengo.laposte.fr/api/v2/depots/1814183', text=api_response)
-
-        api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
-        result = api.get_depot(1814183, print_pdf=True)
-
-        assert result == {"data": {"id": 1814183, "id_utilisateur": 22855, "date": "2018-01-15 14:57:51",
-                                   "num_coclico": "2205490", "num_siret": "",
-                                   "bordereaux": [{"id": 1727987,  "numero": "0000000001",
-                                                   "nb_pages": 2, "type": 35, "plis": []}]}
-                          }
+# def test_get_depot_application_pdf():  # TODO: find a depot with some plis
+#     """Test get_depot when the pdf is requested."""
+#     with requests_mock.Mocker() as m:
+#         api_response = open("tests/assets/get_depot_pdf_ok.json", "rb", encoding='utf8').read()
+#         m.get('https://mydelivengo.laposte.fr/api/v2/depots/1814183', text=api_response)
+#
+#         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
+#         result = api.get_depot(1814183, print_pdf=True)
+#
+#         assert result == {"data": {"id": 1814183, "id_utilisateur": 22855, "date": "2018-01-15 14:57:51",
+#                                    "num_coclico": "2205490", "num_siret": "",
+#                                    "bordereaux": [{"id": 1727987,  "numero": "0000000001",
+#                                                    "nb_pages": 2, "type": 35, "plis": []}]}
+#                           }
 
 
 def test_get_depot_missing_parameter():
