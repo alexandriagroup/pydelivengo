@@ -52,18 +52,18 @@ def test_get_envoi_pdf():
         assert {'id', 'id_support', 'id_utilisateur', 'date_creation', 'date_impression'}.issubset(data_keys_set)
 
 
-# def test_get_envoi():  # TODO: anonymize PDF
-#     """Test get_envoi with pdf"""
-#     with requests_mock.Mocker() as m:
-#         api_response = open("tests/assets/get_envoi_pdf_ok.json", "rb", encoding='utf8').read()
-#         m.get('https://mydelivengo.laposte.fr/api/v2/envois/5306429', text=api_response)
-#
-#         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
-#         result = api.get_envoi(5306429, print_pdf=True)
-#
-#         # Check if 'id', 'plis' and 'documents_supports' are keys of result
-#         data_keys_set = set(result['data'].keys())
-#         assert {'id', 'plis', 'documents_supports'}.issubset(data_keys_set)
+def test_get_envoi():
+    """Test get_envoi with pdf"""
+    with requests_mock.Mocker() as m:
+        api_response = open("tests/assets/get_envoi_pdf_ok.json", "rb", encoding='utf8').read()
+        m.get('https://mydelivengo.laposte.fr/api/v2/envois/5306429', text=api_response)
+
+        api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
+        result = api.get_envoi(5306429, print_pdf=True)
+
+        # Check if 'id', 'plis' and 'documents_supports' are keys of result
+        data_keys_set = set(result['data'].keys())
+        assert {'id', 'plis', 'documents_supports'}.issubset(data_keys_set)
 
 
 def test_get_envoi_missing_parameter():
