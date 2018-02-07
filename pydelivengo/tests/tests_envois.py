@@ -16,7 +16,7 @@ from pydelivengo.pydelivengo import PyDelivengo
 def test_get_envois():
     """Test get_envois with a mock."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_envois_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_envois_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/envois', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
@@ -41,7 +41,7 @@ def test_get_envois_type_error():
 def test_get_envoi_pdf():
     """Test get_envoi with a mock."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_envoi_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_envoi_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/envois/5306429', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
@@ -55,7 +55,7 @@ def test_get_envoi_pdf():
 def test_get_envoi():
     """Test get_envoi with pdf"""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_envoi_pdf_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_envoi_pdf_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/envois/5306429', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
@@ -87,7 +87,7 @@ def test_get_envoi_type_error():
 # def test_delete_envois():  # FIXME: find how to return "ok = true" in the mock
 #     """Test delete_envois with a mock."""
 #     with requests_mock.Mocker() as m:
-#         # api_response = open("tests/assets/delete_envoi_ok.json", "rb", encoding='utf8').read()
+#         # api_response = open("pydelivengo/tests/assets/delete_envoi_ok.json", "rb", encoding='utf8').read()
 #         m.delete('https://mydelivengo.laposte.fr/api/v2/envois/5306429', text='[]', ok=True)
 #
 #         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')

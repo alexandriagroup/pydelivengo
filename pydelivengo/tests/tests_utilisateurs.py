@@ -14,7 +14,7 @@ from pydelivengo.pydelivengo import PyDelivengo
 def test_get_user_info():
     """Test get_user_info  with a mock."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_utilisateur_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_utilisateur_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/utilisateurs/0', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')

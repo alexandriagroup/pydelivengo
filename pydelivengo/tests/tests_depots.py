@@ -16,7 +16,7 @@ from pydelivengo.pydelivengo import PyDelivengo
 def test_get_depots():
     """Test get_depots function with a mock."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_depots_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_depots_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/depots', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
@@ -44,7 +44,7 @@ def test_get_depots_type_error():
 def test_get_depot():
     """Test get_depot with a mock."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_depot_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_depot_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/depots/1814183', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
@@ -60,7 +60,7 @@ def test_get_depot():
 # def test_get_depot_application_pdf():  # TODO: find a depot with some plis
 #     """Test get_depot when the pdf is requested."""
 #     with requests_mock.Mocker() as m:
-#         api_response = open("tests/assets/get_depot_pdf_ok.json", "rb", encoding='utf8').read()
+#         api_response = open("pydelivengo/tests/assets/get_depot_pdf_ok.json", "rb", encoding='utf8').read()
 #         m.get('https://mydelivengo.laposte.fr/api/v2/depots/1814183', text=api_response)
 #
 #         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')

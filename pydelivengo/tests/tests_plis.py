@@ -16,7 +16,7 @@ from pydelivengo.pydelivengo import PyDelivengo
 def test_get_plis():
     """Test get_plis with a mock."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_plis_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_plis_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/plis', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
@@ -42,7 +42,7 @@ def test_get_plis_type_error():
 def test_get_pli():
     """Test get_pli when the pdf is requested."""
     with requests_mock.Mocker() as m:
-        api_response = open("tests/assets/get_pli_pdf_ok.json", "rb", encoding='utf8').read()
+        api_response = open("pydelivengo/tests/assets/get_pli_pdf_ok.json", "rb", encoding='utf8').read()
         m.get('https://mydelivengo.laposte.fr/api/v2/plis/11437479', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
