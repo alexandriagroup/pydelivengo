@@ -1,6 +1,11 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 # Copyright © 2018 Alexandria
 #
 # Distributed under terms of the MIT license.
+
+from __future__ import absolute_import
 
 import json
 
@@ -9,6 +14,12 @@ import requests
 from pydelivengo.exception import PyDelivengoTypeError
 
 URL = 'https://mydelivengo.laposte.fr/api/v2/'
+
+
+def add_headers(x, y):
+    z = x.copy()
+    z.update(y)
+    return z
 
 
 class PyDelivengo(object):
@@ -58,7 +69,7 @@ class PyDelivengo(object):
         url = URL + 'depots/' + str(depot_id)
 
         if print_pdf:  # Merge the 2 dicts
-            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
         else:
             headers = self.headers
 
@@ -82,7 +93,7 @@ class PyDelivengo(object):
         url = URL + 'depots/'
 
         if print_pdf:  # Merge the 2 dicts
-            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
         else:
             headers = self.headers
 
@@ -131,7 +142,7 @@ class PyDelivengo(object):
         url = URL + 'envois/' + str(envoi_id)
 
         if print_pdf:  # Merge the 2 dicts
-            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
         else:
             headers = self.headers
 
@@ -175,7 +186,7 @@ class PyDelivengo(object):
         url = URL + 'envois/'
 
         if print_pdf:  # Merge the 2 dicts
-            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
         else:
             headers = self.headers
 
@@ -250,7 +261,7 @@ class PyDelivengo(object):
         url = URL + 'plis/' + str(pli_id)
 
         if print_pdf:  # Merge the 2 dicts
-            headers = {**self.headers, **{'Accept': 'application/pdf'}}
+            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
         else:
             headers = self.headers
 
