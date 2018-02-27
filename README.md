@@ -18,7 +18,7 @@ documentation.
 ```python
 api = PyDelivengo(api_authorization="your_mydelivengo_api_key")
 api.get_user_info()  # Get your user info
-api..get_envois()  # get all your "envois"
+api.get_envois()  # get all your "envois"
 api.get_pli(11437479, print_pdf=True)  # Get the "pli" with ID 11437479 and generate PDF to print
 api.get_depots(params={'date[from]':'30/11/2017'})  # Get the "depots" from November 30th
 ```
