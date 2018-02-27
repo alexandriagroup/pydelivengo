@@ -4,9 +4,11 @@
 pydelivengo is a Python library using the MyDelivengo API
 
 
-## MyDelivengo API documentation
+## Documentation
 
-http://www.assistance-mydelivengo.fr/api/
+PyDelivengo : https://alexandriagroup.github.io/pydelivengo/
+
+MyDelivengo (La Poste API documentation) : http://www.assistance-mydelivengo.fr/api/
 
 You can find the list of parameters for each function into this
 documentation.
