@@ -41,6 +41,7 @@ def test_get_envois_type_error():
         # noinspection PyTypeChecker
         api.get_envois(params='lolcatz')
 
+
 # ----------------------------------------------------- get_envoi ------------------------------------------------------
 
 def test_get_envoi_pdf():
@@ -50,7 +51,7 @@ def test_get_envoi_pdf():
         m.get('https://mydelivengo.laposte.fr/api/v2/envois/5306429', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
-        result = api.get_envoi(5306429 )
+        result = api.get_envoi(5306429)
 
         # Check if 'id', 'plis' and 'documents_supports' are keys of result
         data_keys_set = set(result['data'].keys())
@@ -134,6 +135,7 @@ def test_post_envoi_type_error():
     with pytest.raises(PyDelivengoTypeError):
         # noinspection PyTypeChecker
         api.post_envois(data_dict='lolcatz')
+
 
 def test_post_envoi_type_param_error():
     """Test post_envois when params is not a dictionary."""

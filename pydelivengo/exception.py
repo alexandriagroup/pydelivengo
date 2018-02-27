@@ -7,6 +7,7 @@
 
 from __future__ import absolute_import
 
+
 class PyDelivengoException(Exception):
     """"""
     pass
