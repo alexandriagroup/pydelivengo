@@ -13,6 +13,18 @@ MyDelivengo (La Poste API documentation) : http://www.assistance-mydelivengo.fr/
 You can find the list of parameters for each function into this
 documentation.
 
+## How to use
+
+```python
+api = PyDelivengo(api_authorization="your_mydelivengo_api_key")
+api.get_user_info()  # Get your user info
+api..get_envois()  # get all your "envois"
+api.get_pli(11437479, print_pdf=True)  # Get the "pli" with ID 11437479 and generate PDF to print
+api.get_depots(params={'date[from]':'30/11/2017'})  # Get the "depots" from November 30th
+```
+
+
+Looks to [MyDelivengo](http://www.assistance-mydelivengo.fr/api/documentation/) documentation to see all parameters.
 
 ## Tools
 

@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>pydelivengo API documentation</title>
+    <title>pydelivengo.tests.tests_plis API documentation</title>
     <meta name="description" content="" />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
@@ -1041,15 +1041,19 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#pydelivengo.tests.tests_plis.test_delete_plis_missing_parameter">test_delete_plis_missing_parameter</a></li>
+    <li class="mono"><a href="#pydelivengo.tests.tests_plis.test_get_pli">test_get_pli</a></li>
+    <li class="mono"><a href="#pydelivengo.tests.tests_plis.test_get_pli_missing_parameter">test_get_pli_missing_parameter</a></li>
+    <li class="mono"><a href="#pydelivengo.tests.tests_plis.test_get_plis">test_get_plis</a></li>
+    <li class="mono"><a href="#pydelivengo.tests.tests_plis.test_get_plis_type_error">test_get_plis_type_error</a></li>
+  </ul>
 
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="exception.m.html">pydelivengo.exception</a></li>
-        <li class="mono"><a href="pydelivengo.m.html">pydelivengo.pydelivengo</a></li>
-        <li class="mono"><a href="tests/index.html">pydelivengo.tests</a></li>
-      </ul>
     </li>
+
+
     </ul>
   </div>
 
@@ -1061,35 +1065,242 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">pydelivengo</span> module</h1>
+  <h1 class="title"><span class="name">pydelivengo.tests.tests_plis</span> module</h1>
   
   
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_plis', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_plis" class="source">
+    <div class="codehilite"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright © 2018 Alexandria</span>
+<span class="c1">#</span>
+<span class="c1"># Distributed under terms of the MIT license.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">codecs</span> <span class="kn">import</span> <span class="nb">open</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">requests_mock</span>
+
+<span class="kn">from</span> <span class="nn">pydelivengo.exception</span> <span class="kn">import</span> <span class="n">PyDelivengoTypeError</span>
+<span class="kn">from</span> <span class="nn">pydelivengo.pydelivengo</span> <span class="kn">import</span> <span class="n">PyDelivengo</span>
+
+
+<span class="c1"># ------------------------------------------------------- get_plis -----------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">test_get_plis</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_plis with a mock.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">requests_mock</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">api_response</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pydelivengo/tests/assets/get_plis_ok.json&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://mydelivengo.laposte.fr/api/v2/plis&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">api_response</span><span class="p">)</span>
+
+        <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_plis</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="s1">&#39;data&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+        <span class="c1"># Check if there are some keys in the result</span>
+        <span class="n">data_keys_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;id_envoi&#39;</span><span class="p">,</span> <span class="s1">&#39;numero&#39;</span><span class="p">,</span> <span class="s1">&#39;date_creation&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">data_keys_set</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_get_plis_type_error</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_plis when params is not a dictionary.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_plis</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="s1">&#39;lolcatz&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># ------------------------------------------------------- get_pli ------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">test_get_pli</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_pli when the pdf is requested.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">requests_mock</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">api_response</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pydelivengo/tests/assets/get_pli_pdf_ok.json&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://mydelivengo.laposte.fr/api/v2/plis/11437479&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">api_response</span><span class="p">)</span>
+
+        <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_pli</span><span class="p">(</span><span class="mi">11437479</span><span class="p">,</span> <span class="n">print_pdf</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="c1"># Check if &#39;id&#39;, &#39;plis&#39; and &#39;documents_supports&#39; are keys of result</span>
+        <span class="n">data_keys_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;documents_supports&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">data_keys_set</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_get_pli_missing_parameter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_pli when pli_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_pli</span><span class="p">(</span><span class="n">pli_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+
+<span class="c1"># ----------------------------------------------------- delete_plis ----------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">test_delete_plis_missing_parameter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test delete_plis when pli_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">delete_plis</span><span class="p">(</span><span class="n">pli_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+  </div>
 
   </header>
 
   <section id="section-items">
 
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-      <div class="item">
-      <p class="name"><a href="exception.m.html">pydelivengo.exception</a></p>
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_plis.test_delete_plis_missing_parameter">
+    <p>def <span class="ident">test_delete_plis_missing_parameter</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test delete_plis when pli_id is none.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_plis.test_delete_plis_missing_parameter', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_plis.test_delete_plis_missing_parameter" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_delete_plis_missing_parameter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test delete_plis when pli_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">delete_plis</span><span class="p">(</span><span class="n">pli_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_plis.test_get_pli">
+    <p>def <span class="ident">test_get_pli</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_pli when the pdf is requested.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_plis.test_get_pli', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_plis.test_get_pli" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_pli</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_pli when the pdf is requested.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">requests_mock</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">api_response</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pydelivengo/tests/assets/get_pli_pdf_ok.json&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://mydelivengo.laposte.fr/api/v2/plis/11437479&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">api_response</span><span class="p">)</span>
+
+        <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_pli</span><span class="p">(</span><span class="mi">11437479</span><span class="p">,</span> <span class="n">print_pdf</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="c1"># Check if &#39;id&#39;, &#39;plis&#39; and &#39;documents_supports&#39; are keys of result</span>
+        <span class="n">data_keys_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;documents_supports&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">data_keys_set</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_plis.test_get_pli_missing_parameter">
+    <p>def <span class="ident">test_get_pli_missing_parameter</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_pli when pli_id is none.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_plis.test_get_pli_missing_parameter', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_plis.test_get_pli_missing_parameter" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_pli_missing_parameter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_pli when pli_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_pli</span><span class="p">(</span><span class="n">pli_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_plis.test_get_plis">
+    <p>def <span class="ident">test_get_plis</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_plis with a mock.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_plis.test_get_plis', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_plis.test_get_plis" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_plis</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_plis with a mock.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">requests_mock</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">api_response</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pydelivengo/tests/assets/get_plis_ok.json&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://mydelivengo.laposte.fr/api/v2/plis&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">api_response</span><span class="p">)</span>
+
+        <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_plis</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="s1">&#39;data&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+        <span class="c1"># Check if there are some keys in the result</span>
+        <span class="n">data_keys_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;id_envoi&#39;</span><span class="p">,</span> <span class="s1">&#39;numero&#39;</span><span class="p">,</span> <span class="s1">&#39;date_creation&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">data_keys_set</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_plis.test_get_plis_type_error">
+    <p>def <span class="ident">test_get_plis_type_error</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_plis when params is not a dictionary.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_plis.test_get_plis_type_error', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_plis.test_get_plis_type_error" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_plis_type_error</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_plis when params is not a dictionary.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_plis</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="s1">&#39;lolcatz&#39;</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="pydelivengo.m.html">pydelivengo.pydelivengo</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="tests/index.html">pydelivengo.tests</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>

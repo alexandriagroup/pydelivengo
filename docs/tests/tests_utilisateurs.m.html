@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>pydelivengo API documentation</title>
+    <title>pydelivengo.tests.tests_utilisateurs API documentation</title>
     <meta name="description" content="" />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
@@ -1041,15 +1041,17 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#pydelivengo.tests.tests_utilisateurs.test_get_user_info">test_get_user_info</a></li>
+    <li class="mono"><a href="#pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_error">test_get_user_info_type_error</a></li>
+    <li class="mono"><a href="#pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_none">test_get_user_info_type_none</a></li>
+  </ul>
 
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="exception.m.html">pydelivengo.exception</a></li>
-        <li class="mono"><a href="pydelivengo.m.html">pydelivengo.pydelivengo</a></li>
-        <li class="mono"><a href="tests/index.html">pydelivengo.tests</a></li>
-      </ul>
     </li>
+
+
     </ul>
   </div>
 
@@ -1061,35 +1063,150 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">pydelivengo</span> module</h1>
+  <h1 class="title"><span class="name">pydelivengo.tests.tests_utilisateurs</span> module</h1>
   
   
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_utilisateurs', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_utilisateurs" class="source">
+    <div class="codehilite"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1">#  Copyright © 2018 Alexandria</span>
+<span class="c1">#</span>
+<span class="c1"># Distributed under terms of the MIT license.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">codecs</span> <span class="kn">import</span> <span class="nb">open</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">requests_mock</span>
+
+<span class="kn">from</span> <span class="nn">pydelivengo.exception</span> <span class="kn">import</span> <span class="n">PyDelivengoTypeError</span>
+<span class="kn">from</span> <span class="nn">pydelivengo.pydelivengo</span> <span class="kn">import</span> <span class="n">PyDelivengo</span>
+
+
+<span class="k">def</span> <span class="nf">test_get_user_info</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_user_info  with a mock.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">requests_mock</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">api_response</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pydelivengo/tests/assets/get_utilisateur_ok.json&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://mydelivengo.laposte.fr/api/v2/utilisateurs/0&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">api_response</span><span class="p">)</span>
+
+        <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_user_info</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;22852&quot;</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;johndoe@my_best_company.com&quot;</span><span class="p">,</span>
+                                   <span class="s2">&quot;nom&quot;</span><span class="p">:</span> <span class="s2">&quot;Doe&quot;</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">}}</span>
+
+
+<span class="k">def</span> <span class="nf">test_get_user_info_type_none</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_user_info when user_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_user_info</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_get_user_info_type_error</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_user_info when user_id is not an integer.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_user_info</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="s1">&#39;lolcatz&#39;</span><span class="p">)</span>
+</pre></div>
+
+  </div>
 
   </header>
 
   <section id="section-items">
 
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-      <div class="item">
-      <p class="name"><a href="exception.m.html">pydelivengo.exception</a></p>
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_utilisateurs.test_get_user_info">
+    <p>def <span class="ident">test_get_user_info</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_user_info  with a mock.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_utilisateurs.test_get_user_info', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_utilisateurs.test_get_user_info" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_user_info</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_user_info  with a mock.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">requests_mock</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">api_response</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pydelivengo/tests/assets/get_utilisateur_ok.json&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://mydelivengo.laposte.fr/api/v2/utilisateurs/0&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">api_response</span><span class="p">)</span>
+
+        <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_user_info</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;22852&quot;</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;johndoe@my_best_company.com&quot;</span><span class="p">,</span>
+                                   <span class="s2">&quot;nom&quot;</span><span class="p">:</span> <span class="s2">&quot;Doe&quot;</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">}}</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_error">
+    <p>def <span class="ident">test_get_user_info_type_error</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_user_info when user_id is not an integer.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_error', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_error" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_user_info_type_error</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_user_info when user_id is not an integer.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_user_info</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="s1">&#39;lolcatz&#39;</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_none">
+    <p>def <span class="ident">test_get_user_info_type_none</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_user_info when user_id is none.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_none', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_utilisateurs.test_get_user_info_type_none" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_user_info_type_none</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_user_info when user_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_user_info</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="pydelivengo.m.html">pydelivengo.pydelivengo</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="tests/index.html">pydelivengo.tests</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>

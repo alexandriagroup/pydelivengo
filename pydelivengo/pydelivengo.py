@@ -17,6 +17,16 @@ URL = 'https://mydelivengo.laposte.fr/api/v2/'
 
 
 def add_headers(x, y):
+    """
+    Add new headers.
+
+    :param x: a dict with headers for the API
+    :type x: dict
+    :param y: a dict with headers for the API
+    :type y: dict
+    :return: a dict with headers merged
+    :rtype: dict
+    """
     z = x.copy()
     z.update(y)
     return z

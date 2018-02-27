@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>pydelivengo API documentation</title>
+    <title>pydelivengo.tests.tests_imputations API documentation</title>
     <meta name="description" content="" />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
@@ -1041,15 +1041,15 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#pydelivengo.tests.tests_imputations.test_get_imputation">test_get_imputation</a></li>
+  </ul>
 
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="exception.m.html">pydelivengo.exception</a></li>
-        <li class="mono"><a href="pydelivengo.m.html">pydelivengo.pydelivengo</a></li>
-        <li class="mono"><a href="tests/index.html">pydelivengo.tests</a></li>
-      </ul>
     </li>
+
+
     </ul>
   </div>
 
@@ -1061,35 +1061,69 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">pydelivengo</span> module</h1>
+  <h1 class="title"><span class="name">pydelivengo.tests.tests_imputations</span> module</h1>
   
   
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_imputations', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_imputations" class="source">
+    <div class="codehilite"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright © 2018 Alexandria</span>
+<span class="c1">#</span>
+<span class="c1"># Distributed under terms of the MIT license.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">from</span> <span class="nn">pydelivengo.exception</span> <span class="kn">import</span> <span class="n">PyDelivengoTypeError</span>
+<span class="kn">from</span> <span class="nn">pydelivengo.pydelivengo</span> <span class="kn">import</span> <span class="n">PyDelivengo</span>
+
+
+<span class="k">def</span> <span class="nf">test_get_imputation</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_imputation when imputation_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_imputation</span><span class="p">(</span><span class="n">imputation_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+  </div>
 
   </header>
 
   <section id="section-items">
 
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-      <div class="item">
-      <p class="name"><a href="exception.m.html">pydelivengo.exception</a></p>
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="pydelivengo.tests.tests_imputations.test_get_imputation">
+    <p>def <span class="ident">test_get_imputation</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Test get_imputation when imputation_id is none.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-pydelivengo.tests.tests_imputations.test_get_imputation', this);">Show source &equiv;</a></p>
+  <div id="source-pydelivengo.tests.tests_imputations.test_get_imputation" class="source">
+    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_get_imputation</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test get_imputation when imputation_id is none.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">PyDelivengo</span><span class="p">(</span><span class="n">api_authorization</span><span class="o">=</span><span class="s1">&#39;Loremipsumdolorsitametconsectetu&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">PyDelivengoTypeError</span><span class="p">):</span>
+        <span class="c1"># noinspection PyTypeChecker</span>
+        <span class="n">api</span><span class="o">.</span><span class="n">get_imputation</span><span class="p">(</span><span class="n">imputation_id</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="pydelivengo.m.html">pydelivengo.pydelivengo</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="tests/index.html">pydelivengo.tests</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>
