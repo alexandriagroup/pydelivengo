@@ -22,4 +22,5 @@ setup(
     url = 'https://github.com/alexandriagroup/pydelivengo',
     download_url = 'https://github.com/alexandriagroup/pydelivengo/archive/v1.1.tar.gz',
     keywords=['api', 'mydelivengo', 'python', 'webservices'],
+    packages=['pydelivengo'],
 )
