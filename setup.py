@@ -20,7 +20,7 @@ setup(
     author = 'Alicia FLOREZ',
     author_email = 'alicflorez@gmail.com',
     url = 'https://github.com/alexandriagroup/pydelivengo',
-    download_url = 'https://github.com/alexandriagroup/pydelivengo/archive/v1.2.tar.gz',
+    download_url = 'https://github.com/alexandriagroup/pydelivengo/archive/v1.3.tar.gz',
     keywords=['api', 'mydelivengo', 'python', 'webservices', 'la poste'],
     packages=['pydelivengo'],
 )
