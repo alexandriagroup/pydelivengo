@@ -254,7 +254,7 @@ class PyDelivengo(object):
         response = requests.request('GET', url, headers=self.headers, params=params)
         return json.loads(response.text)
 
-    def get_pli(self, pli_id, print_pdf=False):
+    def get_pli(self, pli_id, print_pdf=False, params=None):
         """
         Get the envelope for the ID given.
 
@@ -262,6 +262,8 @@ class PyDelivengo(object):
         :type pli_id: int
         :param print_pdf: True if you want the PDF of the deposit, else False.
         :type print_pdf: bool
+        :param params: dict of parameters for the request.
+        :type params: dict
         :return: a dict with data of the envelope for the ID given.
         :rtype: dict
         """
@@ -275,7 +277,7 @@ class PyDelivengo(object):
         else:
             headers = self.headers
 
-        response = requests.request('GET', url, headers=headers)
+        response = requests.request('GET', url, headers=headers, params=params)
         return json.loads(response.text)
 
     def delete_plis(self, pli_id):

@@ -15,12 +15,12 @@ tests_require = [
 setup(
     name='pydelivengo',
     license='MIT',
-    version = 'v1.2',
+    version = 'v1.3',
     description = 'A lib to use MyDelivengo API',
     author = 'Alicia FLOREZ',
     author_email = 'alicflorez@gmail.com',
     url = 'https://github.com/alexandriagroup/pydelivengo',
     download_url = 'https://github.com/alexandriagroup/pydelivengo/archive/v1.2.tar.gz',
-    keywords=['api', 'mydelivengo', 'python', 'webservices'],
+    keywords=['api', 'mydelivengo', 'python', 'webservices', 'la poste'],
     packages=['pydelivengo'],
 )
