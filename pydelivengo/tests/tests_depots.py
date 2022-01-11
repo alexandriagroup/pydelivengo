@@ -22,7 +22,7 @@ def test_get_depots():
     """Test get_depots function with a mock."""
     with requests_mock.Mocker() as m:
         api_response = open("pydelivengo/tests/assets/get_depots_ok.json", "rb", encoding='utf8').read()
-        m.get('https://mydelivengo.laposte.fr/api/v2/depots', text=api_response)
+        m.get('https://mydelivengo.laposte.fr/api/v2.4/depots', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
         result = api.get_depots()
@@ -50,7 +50,7 @@ def test_get_depot():
     """Test get_depot with a mock."""
     with requests_mock.Mocker() as m:
         api_response = open("pydelivengo/tests/assets/get_depot_ok.json", "rb", encoding='utf8').read()
-        m.get('https://mydelivengo.laposte.fr/api/v2/depots/1814183', text=api_response)
+        m.get('https://mydelivengo.laposte.fr/api/v2.4/depots/1814183', text=api_response)
 
         api = PyDelivengo(api_authorization='Loremipsumdolorsitametconsectetu')
         result = api.get_depot(1814183)
