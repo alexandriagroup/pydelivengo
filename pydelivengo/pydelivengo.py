@@ -5,15 +5,13 @@
 #
 # Distributed under terms of the MIT license.
 
-from __future__ import absolute_import
-
 import json
 
 import requests
 
 from pydelivengo.exception import PyDelivengoTypeError
 
-URL = 'https://mydelivengo.laposte.fr/api/v{VERSION}/'
+URL = "https://mydelivengo.laposte.fr/api/v{VERSION}/"
 
 
 def add_headers(x, y):
@@ -39,8 +37,9 @@ class PyDelivengo(object):
         """Create the headers for the connection with MyDelivengo API"""
         self.version = version
         self.headers = {
-            'cookie': 'locale=fr;',
-            'api-authorization': api_authorization,
+            "cookie": "locale=fr;",
+            "API-Authorization": api_authorization,
+            "User-Agent": "PyDelivengo",
         }
 
     def generate_url(self):
@@ -56,10 +55,12 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if params is not None and not isinstance(params, dict):
-            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+            raise PyDelivengoTypeError(
+                "params should be a dictionary and not {}.".format(type(params))
+            )
 
-        url = self.generate_url() + 'depots'
-        response = requests.request('GET', url, headers=self.headers, params=params)
+        url = self.generate_url() + "depots"
+        response = requests.request("GET", url, headers=self.headers, params=params)
         return json.loads(response.text)
 
     def get_depot(self, depot_id, params=None, print_pdf=False):
@@ -76,18 +77,22 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(depot_id, int):
-            raise PyDelivengoTypeError('depot_id should be a dictionary and not {}.'.format(type(depot_id)))
+            raise PyDelivengoTypeError(
+                "depot_id should be a dictionary and not {}.".format(type(depot_id))
+            )
         if params is not None and not isinstance(params, dict):
-            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+            raise PyDelivengoTypeError(
+                "params should be a dictionary and not {}.".format(type(params))
+            )
 
-        url = self.generate_url() + 'depots/' + str(depot_id)
+        url = self.generate_url() + "depots/" + str(depot_id)
 
         if print_pdf:  # Merge the 2 dicts
-            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
+            headers = add_headers(self.headers, {"Accept": "application/pdf"})
         else:
             headers = self.headers
 
-        response = requests.request('GET', url, headers=headers, params=params)
+        response = requests.request("GET", url, headers=headers, params=params)
         return json.loads(response.text)
 
     def post_depot(self, data_dict, print_pdf=False):
@@ -102,19 +107,21 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(data_dict, dict):
-            raise PyDelivengoTypeError('data_dict should be a dictionary and not {}.'.format(type(data_dict)))
+            raise PyDelivengoTypeError(
+                "data_dict should be a dictionary and not {}.".format(type(data_dict))
+            )
 
-        url = self.generate_url() + 'depots/'
+        url = self.generate_url() + "depots/"
 
         if print_pdf:  # Merge the 2 dicts
-            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
+            headers = add_headers(self.headers, {"Accept": "application/pdf"})
         else:
             headers = self.headers
 
         # Json encoding
         data_json = json.dumps(data_dict)
 
-        response = requests.request('POST', url, data=data_json, headers=headers)
+        response = requests.request("POST", url, data=data_json, headers=headers)
         return json.loads(response.text)
 
     # -------------------------------------------------------------------------
@@ -129,10 +136,12 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if params is not None and not isinstance(params, dict):
-            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+            raise PyDelivengoTypeError(
+                "params should be a dictionary and not {}.".format(type(params))
+            )
 
-        url = self.generate_url() + 'envois'
-        response = requests.request('GET', url, headers=self.headers, params=params)
+        url = self.generate_url() + "envois"
+        response = requests.request("GET", url, headers=self.headers, params=params)
         return json.loads(response.text)
 
     def get_envoi(self, envoi_id, params=None, print_pdf=False):
@@ -149,18 +158,22 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(envoi_id, int):
-            raise PyDelivengoTypeError('Type of envoi_id should be int and not {}.'.format(type(envoi_id)))
+            raise PyDelivengoTypeError(
+                "Type of envoi_id should be int and not {}.".format(type(envoi_id))
+            )
         if params is not None and not isinstance(params, dict):
-            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+            raise PyDelivengoTypeError(
+                "params should be a dictionary and not {}.".format(type(params))
+            )
 
-        url = self.generate_url() + 'envois/' + str(envoi_id)
+        url = self.generate_url() + "envois/" + str(envoi_id)
 
         if print_pdf:  # Merge the 2 dicts
-            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
+            headers = add_headers(self.headers, {"Accept": "application/pdf"})
         else:
             headers = self.headers
 
-        response = requests.request('GET', url, headers=headers, params=params)
+        response = requests.request("GET", url, headers=headers, params=params)
         return json.loads(response.text)
 
     def delete_envois(self, envoi_id):
@@ -173,10 +186,12 @@ class PyDelivengo(object):
         :rtype: bool
         """
         if not isinstance(envoi_id, int):
-            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(envoi_id)))
+            raise PyDelivengoTypeError(
+                "pli_id should be an integer and not a {}".format(type(envoi_id))
+            )
 
-        url = self.generate_url() + 'envois/' + str(envoi_id)
-        response = requests.request('DELETE', url, headers=self.headers)
+        url = self.generate_url() + "envois/" + str(envoi_id)
+        response = requests.request("DELETE", url, headers=self.headers)
         return response.ok
 
     def post_envois(self, data_dict, print_pdf=False, params=None):
@@ -193,14 +208,18 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(data_dict, dict):
-            raise PyDelivengoTypeError('data_dict should be a and not a {}'.format(type(data_dict)))
+            raise PyDelivengoTypeError(
+                "data_dict should be a and not a {}".format(type(data_dict))
+            )
         if params is not None and not isinstance(params, dict):
-            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+            raise PyDelivengoTypeError(
+                "params should be a dictionary and not {}.".format(type(params))
+            )
 
-        url = self.generate_url() + 'envois/'
+        url = self.generate_url() + "envois/"
 
         if print_pdf:  # Merge the 2 dicts
-            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
+            headers = add_headers(self.headers, {"Accept": "application/pdf"})
         else:
             headers = self.headers
 
@@ -208,7 +227,9 @@ class PyDelivengo(object):
         data_json = json.dumps(data_dict)
 
         # Request
-        response = requests.request('POST', url, data=data_json, headers=headers, params=params)
+        response = requests.request(
+            "POST", url, data=data_json, headers=headers, params=params
+        )
         return json.loads(response.text)
 
     # -------------------------------------------------------------------------
@@ -220,8 +241,8 @@ class PyDelivengo(object):
         :return: a list of imputations.
         :rtype: dict
         """
-        url = self.generate_url() + 'imputations/'
-        response = requests.request('GET', url, headers=self.headers)
+        url = self.generate_url() + "imputations/"
+        response = requests.request("GET", url, headers=self.headers)
         return json.loads(response.text)
 
     def get_imputation(self, imputation_id):
@@ -234,10 +255,12 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(imputation_id, int):
-            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(imputation_id)))
+            raise PyDelivengoTypeError(
+                "pli_id should be an integer and not a {}".format(type(imputation_id))
+            )
 
-        url = self.generate_url() + 'imputations/' + str(imputation_id)
-        response = requests.request('GET', url, headers=self.headers)
+        url = self.generate_url() + "imputations/" + str(imputation_id)
+        response = requests.request("GET", url, headers=self.headers)
         return json.loads(response.text)
 
     # -------------------------------------------------------------------------
@@ -252,10 +275,12 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if params is not None and not isinstance(params, dict):
-            raise PyDelivengoTypeError('params should be a dictionary and not {}.'.format(type(params)))
+            raise PyDelivengoTypeError(
+                "params should be a dictionary and not {}.".format(type(params))
+            )
 
-        url = self.generate_url() + 'plis'
-        response = requests.request('GET', url, headers=self.headers, params=params)
+        url = self.generate_url() + "plis"
+        response = requests.request("GET", url, headers=self.headers, params=params)
         return json.loads(response.text)
 
     def get_pli(self, pli_id, print_pdf=False, params=None):
@@ -272,16 +297,18 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(pli_id, int):
-            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(pli_id)))
+            raise PyDelivengoTypeError(
+                "pli_id should be an integer and not a {}".format(type(pli_id))
+            )
 
-        url = self.generate_url() + 'plis/' + str(pli_id)
+        url = self.generate_url() + "plis/" + str(pli_id)
 
         if print_pdf:  # Merge the 2 dicts
-            headers = add_headers(self.headers, {'Accept': 'application/pdf'})
+            headers = add_headers(self.headers, {"Accept": "application/pdf"})
         else:
             headers = self.headers
 
-        response = requests.request('GET', url, headers=headers, params=params)
+        response = requests.request("GET", url, headers=headers, params=params)
         return json.loads(response.text)
 
     def delete_plis(self, pli_id):
@@ -294,10 +321,12 @@ class PyDelivengo(object):
         :rtype: bool
         """
         if not isinstance(pli_id, int):
-            raise PyDelivengoTypeError('pli_id should be an integer and not a {}'.format(type(pli_id)))
+            raise PyDelivengoTypeError(
+                "pli_id should be an integer and not a {}".format(type(pli_id))
+            )
 
-        url = self.generate_url() + 'plis/' + str(pli_id)
-        response = requests.request('DELETE', url, headers=self.headers)
+        url = self.generate_url() + "plis/" + str(pli_id)
+        response = requests.request("DELETE", url, headers=self.headers)
         return response.ok
 
     # -------------------------------------------------------------------------
@@ -312,8 +341,10 @@ class PyDelivengo(object):
         :rtype: dict
         """
         if not isinstance(user_id, int):
-            raise PyDelivengoTypeError('user_id should be an integer and not a {}'.format(type(user_id)))
+            raise PyDelivengoTypeError(
+                "user_id should be an integer and not a {}".format(type(user_id))
+            )
 
-        url = self.generate_url() + 'utilisateurs/' + str(user_id)
-        response = requests.request('GET', url, headers=self.headers)
+        url = self.generate_url() + "utilisateurs/" + str(user_id)
+        response = requests.request("GET", url, headers=self.headers)
         return json.loads(response.text)

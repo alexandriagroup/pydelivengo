@@ -5,6 +5,4 @@
 #
 # Distributed under terms of the MIT license.
 
-from __future__ import absolute_import
-
 from pydelivengo.pydelivengo import PyDelivengo

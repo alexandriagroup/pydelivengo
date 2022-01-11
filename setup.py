@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydelivengo",
-    version="v1.5",
+    version="1.6",
     license='MIT',
     author="Alicia FLOREZ",
     author_email="alicflorez@gmail.com",
