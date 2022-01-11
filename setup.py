@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydelivengo",
-    version="v1.4",
+    version="v1.5",
     license='MIT',
     author="Alicia FLOREZ",
     author_email="alicflorez@gmail.com",
@@ -26,7 +26,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/alexandriagroup/pydelivengo",
     project_urls = {
-        'Source': 'https://github.com/alexandriagroup/pydelivengo/archive/v1.4.tar.gz',
+        'Source': 'https://github.com/alexandriagroup/pydelivengo/archive/v1.5.tar.gz',
         'Documentation': 'https://alexandriagroup.github.io/pydelivengo/',
         'Travis': 'https://travis-ci.org/alexandriagroup/pydelivengo',
     },
